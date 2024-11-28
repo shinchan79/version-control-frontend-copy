@@ -1,7 +1,7 @@
 // Cấu hình chính
 export const config = {
   // API URL - đường dẫn tới backend service
-  API_URL: "https://content-version-system.trinhhaiyen79.workers.dev",
+  API_URL: "https://content-version-system.sycu-lee.workers.dev/",
   
   // ID mặc định cho content
   DEFAULT_CONTENT_ID: "default",

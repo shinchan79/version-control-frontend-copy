@@ -16,7 +16,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Loader2, Tag as TagIcon, X, Edit2 } from "lucide-react";
 import type { Version, Tag, ApiResponse, SuccessResponse } from "@/types/version";
 
-const API_BASE = 'https://content-version-system.trinhhaiyen79.workers.dev';
+const API_BASE = 'https://content-version-system.sycu-lee.workers.dev/';
 
 export function VersionControl() {
   const [isOpen, setIsOpen] = useState(false);

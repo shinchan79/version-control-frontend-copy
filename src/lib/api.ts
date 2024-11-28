@@ -1,6 +1,6 @@
 import { Version, Tag, CreateVersionRequest, PublishVersionRequest, RevertVersionRequest, DiffResponse } from '@/types/version';
 
-const API_BASE = 'https://content-version-system.trinhhaiyen79.workers.dev';
+const API_BASE = 'https://content-version-system.sycu-lee.workers.dev/';
 
 // Helper function to handle JSON parsing
 async function parseJSON<T>(response: Response): Promise<T> {

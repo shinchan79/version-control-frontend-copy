@@ -45,7 +45,7 @@ yarn install
 
 3. Create a `.env.local` file:
 ```env
-NEXT_PUBLIC_API_BASE=https://content-version-system.trinhhaiyen79.workers.dev
+NEXT_PUBLIC_API_BASE=https://content-version-system.sycu-lee.workers.dev/
 ```
 
 4. Run the development server:
