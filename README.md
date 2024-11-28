@@ -87,20 +87,53 @@ This application is deployed on Cloudflare Pages.
 
 ### Deployment Configuration
 
-1. Build command: `npm run build`
-2. Build output directory: `.next`
-3. Environment variables:
+1. Configure `wrangler.toml` in your project root:
+```toml
+[build]
+command = "npm install && npm run build"
+
+[build.environment]
+NODE_VERSION = "18"
+NPM_VERSION = "9"
+NODE_ENV = "production"
+NEXT_TELEMETRY_DISABLED = "1"
+NEXT_PUBLIC_API_BASE = "<your-workers-url>"
+
+[pages]
+pages_build_output_dir = "out"
+```
+
+2. Configure build settings in Cloudflare Pages:
+   - Framework preset: Next.js
+   - Build command: `npm install && npm run build`
+   - Build output directory: `out`
+   - Root directory setting: `/`
+
+3. Set environment variables in Cloudflare Pages:
    - `NODE_VERSION`: 18
-   - `NEXT_PUBLIC_API_BASE`: API endpoint URL
+   - `NPM_VERSION`: 9
+   - `NEXT_PUBLIC_API_BASE`: Your API endpoint URL
+   - `NEXT_TELEMETRY_DISABLED`: 1
 
 ### Manual Deployment Steps
 
-1. Push changes to the main branch
-2. Cloudflare Pages will automatically build and deploy
+1. Push changes to your repository
+2. Cloudflare Pages will automatically detect changes and start the build process
 3. Monitor deployment status in Cloudflare Dashboard
+4. Once deployed, your site will be available at `your-project.pages.dev`
+
+### Troubleshooting
+
+- If build fails, check the build logs in Cloudflare Dashboard
+- Ensure all environment variables are correctly set
+- Verify `wrangler.toml` configuration
+- Check if the output directory matches your Next.js configuration
 
 ## Contributing
 
 1. Create a new branch
 2. Make your changes
 3. Submit a pull request
+```
+
+This project follows standard Git workflow practices. Please ensure your code follows the existing style and includes appropriate tests.
