@@ -1,0 +1,5 @@
+npm install @radix-ui/react-toast
+npm install -D tailwindcss autoprefixer
+npm install tailwindcss-animate
+npm install @radix-ui/react-label
+npm install clsx tailwind-merge

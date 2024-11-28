@@ -1,0 +1,39 @@
+[build]
+command = "npm run build"
+publish = ".next"
+
+[build.environment]
+NODE_VERSION = "18"
+NPM_VERSION = "9"
+# Thêm môi trường production
+NODE_ENV = "production"
+
+[build.processing]
+skip_processing = false
+
+[build.processing.html]
+pretty_urls = true
+
+[build.processing.css]
+bundle = true
+minify = true
+
+[build.processing.js]
+bundle = true
+minify = true
+
+[build.processing.static]
+chunking = true
+compress = true
+
+[build.processing.images]
+compress = true
+
+# Thêm cấu hình cho Functions nếu bạn sử dụng
+[functions]
+node_compat = true
+
+# Thêm cấu hình cho deployment
+[site]
+bucket = ".next"
+entry-point = "."
