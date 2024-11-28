@@ -12,3 +12,8 @@ NEXT_PUBLIC_API_BASE = "https://content-version-system.sycu-lee.workers.dev/"
 [site]
 bucket = "out"
 entry-point = "."
+
+# Thêm cấu hình cho Cloudflare Pages
+[pages]
+pages_build_output_dir = "out"  # Phải trùng với thư mục publish ở trên
+framework = "nextjs"            # Xác định framework là Next.js
