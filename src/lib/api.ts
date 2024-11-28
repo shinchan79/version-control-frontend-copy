@@ -1,6 +1,5 @@
+import { API_ENDPOINTS } from './constants';
 import { Version, Tag, CreateVersionRequest, PublishVersionRequest, RevertVersionRequest, DiffResponse } from '@/types/version';
-
-const API_BASE = 'https://content-version-system.sycu-lee.workers.dev/';
 
 // Helper function to handle JSON parsing
 async function parseJSON<T>(response: Response): Promise<T> {
@@ -15,7 +14,7 @@ async function parseJSON<T>(response: Response): Promise<T> {
 
 // Version Management
 export async function createVersion(content: string, message?: string): Promise<Version> {
-  const response = await fetch(`${API_BASE}/content`, {
+  const response = await fetch(API_ENDPOINTS.content, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -32,7 +31,7 @@ export async function createVersion(content: string, message?: string): Promise<
 }
 
 export async function getVersions(): Promise<Version[]> {
-  const response = await fetch(`${API_BASE}/content/default/versions`, {
+  const response = await fetch(API_ENDPOINTS.versions, {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -47,7 +46,7 @@ export async function getVersions(): Promise<Version[]> {
 }
 
 export async function getVersion(id: number): Promise<Version> {
-  const response = await fetch(`${API_BASE}/content/default/versions/${id}`, {
+  const response = await fetch(API_ENDPOINTS.version(id), {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -62,7 +61,7 @@ export async function getVersion(id: number): Promise<Version> {
 }
 
 export async function deleteVersion(id: number): Promise<{ success: boolean; message: string }> {
-  const response = await fetch(`${API_BASE}/content/default/versions/${id}`, {
+  const response = await fetch(API_ENDPOINTS.version(id), {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -79,7 +78,7 @@ export async function deleteVersion(id: number): Promise<{ success: boolean; mes
 
 // Publishing
 export async function publishVersion(id: number, publishedBy: string): Promise<Version> {
-  const response = await fetch(`${API_BASE}/content/default/versions/${id}/publish`, {
+  const response = await fetch(API_ENDPOINTS.publish(id), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -96,7 +95,7 @@ export async function publishVersion(id: number, publishedBy: string): Promise<V
 }
 
 export async function unpublishVersion(id: number): Promise<Version> {
-  const response = await fetch(`${API_BASE}/content/default/versions/${id}/unpublish`, {
+  const response = await fetch(API_ENDPOINTS.unpublish(id), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -113,7 +112,7 @@ export async function unpublishVersion(id: number): Promise<Version> {
 
 // Version Control
 export async function revertToVersion(id: number): Promise<Version> {
-  const response = await fetch(`${API_BASE}/content/default/revert`, {
+  const response = await fetch(API_ENDPOINTS.revert, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -130,14 +129,11 @@ export async function revertToVersion(id: number): Promise<Version> {
 }
 
 export async function getDiff(fromVersionId: number, toVersionId: number): Promise<string> {
-  const response = await fetch(
-    `${API_BASE}/content/default/versions/${fromVersionId}/diff?compare=${toVersionId}`,
-    {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  const response = await fetch(API_ENDPOINTS.diff(fromVersionId, toVersionId), {
+    headers: {
+      'Content-Type': 'application/json'
     }
-  );
+  });
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
@@ -149,7 +145,7 @@ export async function getDiff(fromVersionId: number, toVersionId: number): Promi
 
 // Tags
 export async function createTag(versionId: number, name: string): Promise<Tag> {
-  const response = await fetch(`${API_BASE}/content/versions/tags`, {
+  const response = await fetch(API_ENDPOINTS.tags, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -166,7 +162,7 @@ export async function createTag(versionId: number, name: string): Promise<Tag> {
 }
 
 export async function getTags(): Promise<Tag[]> {
-  const response = await fetch(`${API_BASE}/content/versions/tags`, {
+  const response = await fetch(API_ENDPOINTS.tags, {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -181,7 +177,7 @@ export async function getTags(): Promise<Tag[]> {
 }
 
 export async function getVersionTags(versionId: number): Promise<Tag[]> {
-  const response = await fetch(`${API_BASE}/content/versions/${versionId}/tags`, {
+  const response = await fetch(API_ENDPOINTS.versionTags(versionId), {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -196,7 +192,7 @@ export async function getVersionTags(versionId: number): Promise<Tag[]> {
 }
 
 export async function updateTag(oldName: string, newName: string): Promise<Tag> {
-  const response = await fetch(`${API_BASE}/content/versions/tags/${oldName}`, {
+  const response = await fetch(API_ENDPOINTS.tag(oldName), {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -213,7 +209,7 @@ export async function updateTag(oldName: string, newName: string): Promise<Tag> 
 }
 
 export async function deleteTag(name: string): Promise<{ success: boolean; message: string }> {
-  const response = await fetch(`${API_BASE}/content/versions/tags/${name}`, {
+  const response = await fetch(API_ENDPOINTS.tag(name), {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -230,7 +226,7 @@ export async function deleteTag(name: string): Promise<{ success: boolean; messa
 
 // Publish History
 export async function getPublishHistory(): Promise<PublishRecord[]> {
-  const response = await fetch(`${API_BASE}/content/default/publish-history`, {
+  const response = await fetch(API_ENDPOINTS.publishHistory, {
     headers: {
       'Content-Type': 'application/json'
     }

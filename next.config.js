@@ -12,7 +12,7 @@ const nextConfig = {
   assetPrefix: '/',
   distDir: 'out',
   env: {
-    NEXT_PUBLIC_API_URL: 'https://content-version-system.sycu-lee.workers.dev/'
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_BASE
   }
 }
 

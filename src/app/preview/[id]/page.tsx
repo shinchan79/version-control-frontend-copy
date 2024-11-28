@@ -1,4 +1,5 @@
 import PreviewContent from '@/components/PreviewContent';
+import { getVersions } from '@/lib/api';
 
 export default function PreviewPage({ params }: { params: { id: string } }) {
   return <PreviewContent id={params.id} />;
@@ -6,9 +7,8 @@ export default function PreviewPage({ params }: { params: { id: string } }) {
 
 export async function generateStaticParams() {
   try {
-    const response = await fetch('https://content-version-system.sycu-lee.workers.dev/content/default/versions');
-    const versions = await response.json();
-    return versions.map((version: any) => ({
+    const versions = await getVersions();
+    return versions.map((version) => ({
       id: version.id.toString(),
     }));
   } catch (error) {

@@ -1,7 +1,10 @@
+// Lấy API URL từ biến môi trường
+const API_URL = process.env.NEXT_PUBLIC_API_BASE || "https://content-version-system.sycu-lee.workers.dev/";
+
 // Cấu hình chính
 export const config = {
   // API URL - đường dẫn tới backend service
-  API_URL: "https://content-version-system.sycu-lee.workers.dev/",
+  API_URL,
   
   // ID mặc định cho content
   DEFAULT_CONTENT_ID: "default",
